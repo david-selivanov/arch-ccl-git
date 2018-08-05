@@ -2,7 +2,7 @@
 # Contributor: Rogof <rogof /at/ gmx /dot/ com>
 
 pkgname=ccl-git
-pkgver=4748.1944cfb3
+pkgver=4778.ea47784e
 pkgrel=1
 pkgdesc="The Clozure Common Lisp implementation"
 url="http://ccl.clozure.com/"
@@ -15,13 +15,21 @@ provides=('common-lisp' 'cl-asdf' 'ccl')
 conflicts=('ccl-bin' 'ccl')
 [ "${CARCH}" = 'x86_64' ] && _arch=64
 [ "${CARCH}" = 'i686' ] && _arch=32
-source=("git+https://github.com/Clozure/ccl.git" http://svn.clozure.com/publicsvn/openmcl/trunk/source/scripts/get-binaries)
+source=("git+https://github.com/Clozure/ccl.git" 
+        http://svn.clozure.com/publicsvn/openmcl/trunk/source/scripts/get-binaries
+        increase-symbol-list.patch)
 sha1sums=('SKIP'
-          '3160281c3c8ed63b0019fa00139026d9fdb3259e')
+          '3160281c3c8ed63b0019fa00139026d9fdb3259e'
+          'SKIP')
 
 pkgver() {
   cd ccl
   printf %s.%s $(git rev-list --count HEAD) $(git rev-parse --short HEAD)
+}
+
+prepare() {
+  cd ccl
+  patch -p 1 -i $srcdir/increase-symbol-list.patch
 }
 
 build() {

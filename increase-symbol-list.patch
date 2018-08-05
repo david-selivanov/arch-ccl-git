@@ -1,0 +1,13 @@
+diff --git a/level-0/l0-symbol.lisp b/level-0/l0-symbol.lisp
+index 4c382895..158a6f69 100644
+--- a/level-0/l0-symbol.lisp
++++ b/level-0/l0-symbol.lisp
+@@ -30,7 +30,7 @@
+ ;;; can handle.
+ 
+ (defun check-symbol-list (l &optional (max-length
+-                                        (floor (- 4096 20) (* target::node-size 3))
++                                        (floor (- 65536 20) (* target::node-size 3))
+                                        ))
+   (let ((len (list-length l)))
+     (if (and len
